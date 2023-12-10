@@ -4,24 +4,40 @@ import com.pizzapos.utils.*;
 
 public abstract class AbstractEntity {
 	private String id;
-	private Date updatedAt;
+	private String updatedAt;
 	private String updatedBy;
 	
 	public AbstractEntity() {
 		this.id = UUIDGenerator.generateUUID();
-		this.updatedAt = new Date();
-		this.updatedBy = State.getCurrentUser();
+		this.updatedAt = new Date().toString();
+		this.updatedBy = getCurrentUserId();
 	}
 	
-	public void update(String id) {
+	public AbstractEntity(String id) {
 		this.id = id;
-		this.updatedAt = new Date();
-		this.updatedBy = State.getCurrentUser();
+		this.updatedAt = new Date().toString();
+		this.updatedBy = getCurrentUserId();
 	}
 	
-	public void displayInfo() {
-		System.out.println("ID: " + id);
-		System.out.println("UPDATED_AT: " + updatedAt);
-		System.out.println("UPDATED_BY: " + updatedBy);
+	public void update() {
+		this.updatedAt = new Date().toString();
+		this.updatedBy = getCurrentUserId();
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
+	public String getUpdatedAt() {
+		return updatedAt;
+	}
+	
+	public String getUpdatedBy() {
+		return updatedBy;
+	}	
+	
+	public String getCurrentUserId() {
+		User currentUser = Session.getCurrentUser();
+		return (currentUser !=null) ? currentUser.getId() : null;
 	}
 }

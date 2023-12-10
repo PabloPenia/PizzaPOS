@@ -1,10 +1,16 @@
 package com.pizzapos.ui;
 
 import javax.swing.*;
+
+import com.pizzapos.model.Session;
+import com.pizzapos.model.User;
+
 import java.awt.*;
 
 public class MainFrame  extends JFrame {
+	private boolean isAdmin;
 	public MainFrame(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 		setTitle("menu principal");
 		setSize(400, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,6 +38,13 @@ public class MainFrame  extends JFrame {
 		optionsPanel.add(usersButton);
 		optionsPanel.add(customersButton);
 		optionsPanel.add(combosButton);
+		
+		// access current user if needed
+		User currentUser = Session.getCurrentUser();
+		
+		if(currentUser != null) {
+			System.out.println("Current User ID: " + currentUser.getId());
+		}
 	}
 	
 	private void addUserOptions(JPanel optionsPanel) {

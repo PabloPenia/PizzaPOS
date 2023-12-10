@@ -1,6 +1,9 @@
 package com.pizzapos.ui;
 
 import com.pizzapos.App;
+import com.pizzapos.db.UserDAO;
+import com.pizzapos.model.Session;
+import com.pizzapos.model.User;
 import com.pizzapos.ui.MainFrame;
 import javax.swing.*;
 import java.awt.*;
@@ -52,24 +55,21 @@ public class LoginFrame extends JFrame {
 
 	private void handleLogin() {
 		String username = usernameField.getText();
-		char[] password = passwordField.getPassword();
-		boolean isAdmin = authenticateUser(username, password);
-		
-		if(isAdmin) {
-			new MainFrame(true);
+		String password = new String(passwordField.getPassword());
+		User authenticatedUser = UserDAO.authUser(username, password);
+
+		if (authenticatedUser != null) {
+			Session.setCurrentUser(authenticatedUser);
+			new MainFrame(authenticatedUser.isAdmin());
+			dispose();
 		} else {
-			new MainFrame(false);
+			JOptionPane.showMessageDialog(LoginFrame.this, "Credenciales invalidas", "No se pudo iniciar sesión",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		
-		dispose();
 	}
 
 	private void handleWindowClosing() {
 		App.getMainFrame().setVisible(true);
 		dispose();
-	}
-	
-	private boolean authenticateUser(String username, char[] password) {
-		return "admin".equals(username) && "admin".equals(new String(password));
 	}
 }
