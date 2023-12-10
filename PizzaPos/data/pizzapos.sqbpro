@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/home/pablo/eclipse-workspace/PizzaPos/data/pizzapos.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1102"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainCombos"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">-- User Table
+CREATE TABLE IF NOT EXISTS Users (
+    userId TEXT PRIMARY KEY,
+    name TEXT,
+    hashedPassword TEXT,
+    isAdmin BOOLEAN
+);
+
+-- Insert a single record for admin
+INSERT OR IGNORE INTO Users (userId, name, hashedPassword, isAdmin) VALUES ('admin', 'Admin', 'admin', 1);
+
+-- Customers Table (changed from Customer)
+CREATE TABLE IF NOT EXISTS Customers (
+    customerId TEXT PRIMARY KEY,
+    name TEXT,
+    address TEXT,
+    tel TEXT,
+    updated TEXT,
+    updatedBy TEXT REFERENCES Users(userId)
+);
+
+-- Combos Table (changed from Combo)
+CREATE TABLE IF NOT EXISTS Combos (
+    comboId TEXT PRIMARY KEY,
+    name TEXT,
+    description TEXT,
+    price REAL,
+    updated TEXT,
+    updatedBy TEXT REFERENCES Users(userId)
+);
+
+-- Orders Table (changed from Orders)
+CREATE TABLE IF NOT EXISTS Orders (
+    orderId TEXT PRIMARY KEY,
+    customer TEXT REFERENCES Customers(customerId),
+    updated TEXT,
+    updatedBy TEXT REFERENCES Users(userId)
+);
+
+-- OrderCombos Table (changed from OrderCombo)
+CREATE TABLE IF NOT EXISTS OrderCombos (
+    orderComboId TEXT PRIMARY KEY,
+    orderText TEXT REFERENCES Orders(orderId),
+    comboText TEXT REFERENCES Combos(comboId),
+    quantity INTEGER
+);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
