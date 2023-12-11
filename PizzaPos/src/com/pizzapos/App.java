@@ -1,6 +1,6 @@
 package com.pizzapos;
 import com.pizzapos.ui.LoginFrame;
-import com.pizzapos.ui.common.MainFrame;
+import com.pizzapos.ui.MainFrame;
 
 import javax.swing.*;
 
@@ -12,8 +12,7 @@ public class App {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				MainFrame main = new MainFrame();
-				main.display();
+				new MainFrame();
 			}  
 		});
 	}
