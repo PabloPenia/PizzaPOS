@@ -1,12 +1,21 @@
 package com.pizzapos;
 import com.pizzapos.ui.LoginFrame;
+import com.pizzapos.ui.common.MainFrame;
+
 import javax.swing.*;
 
 public class App {
 	private static JFrame mainFrame;
 	
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(App::createAndShowGUI);
+//		SwingUtilities.invokeLater(App::createAndShowGUI);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				MainFrame main = new MainFrame();
+				main.display();
+			}  
+		});
 	}
 	
 	private static void createAndShowGUI() {
