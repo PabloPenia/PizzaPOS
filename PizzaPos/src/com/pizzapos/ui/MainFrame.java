@@ -19,7 +19,7 @@ public class MainFrame {
 		content.setBackground(Color.WHITE);
 		
 		JPanel sidebar = new JPanel();
-		sidebar.setLayout(new BorderLayout());
+		sidebar.setLayout(new GridLayout(3,1));
 		sidebar.setBackground(Color.DARK_GRAY);
 		
 		addButton(sidebar, "Ordenes");
@@ -28,7 +28,7 @@ public class MainFrame {
 		
 		frame.setLayout(new BorderLayout());
 		frame.add(sidebar, BorderLayout.WEST);
-		frame.add(sidebar, BorderLayout.CENTER);
+		frame.add(content, BorderLayout.CENTER);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}

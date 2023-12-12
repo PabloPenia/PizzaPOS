@@ -60,7 +60,7 @@ public class LoginFrame extends JFrame {
 
 		if (authenticatedUser != null) {
 			Session.setCurrentUser(authenticatedUser);
-			new MainFrame(authenticatedUser.isAdmin());
+//			new MainFrame(authenticatedUser.isAdmin());
 			dispose();
 		} else {
 			JOptionPane.showMessageDialog(LoginFrame.this, "Credenciales invalidas", "No se pudo iniciar sesión",
